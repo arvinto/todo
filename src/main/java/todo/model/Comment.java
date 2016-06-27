@@ -1,10 +1,7 @@
 package todo.model;
 
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -22,9 +19,11 @@ public class Comment {
     private Date date;
 
     @JoinColumn
+    @ManyToOne
     private User user;
 
     @JoinColumn
+    @ManyToOne
     private Task task;
 
     public Long getId() {

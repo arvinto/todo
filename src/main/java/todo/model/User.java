@@ -1,6 +1,5 @@
 package todo.model;
 
-import org.springframework.data.annotation.Id;
 import javax.persistence.*;
 import java.util.List;
 

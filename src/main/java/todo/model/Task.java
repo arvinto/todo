@@ -1,6 +1,5 @@
 package todo.model;
 
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -26,6 +25,7 @@ public class Task {
     private Date editedDate;
 
     @JoinColumn
+    @ManyToOne
     private User user;
 
     @OneToMany

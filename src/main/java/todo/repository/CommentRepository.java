@@ -10,4 +10,5 @@ import todo.model.Comment;
 @Repository
 public interface CommentRepository extends CrudRepository<Comment, Long>{
 
+//    List<Comment> findByTaskId
 }
