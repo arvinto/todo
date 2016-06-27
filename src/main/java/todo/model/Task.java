@@ -21,6 +21,8 @@ public class Task {
 
     private String description;
 
+    private Date createdDate;
+
     private Date editedDate;
 
     @JoinColumn
@@ -75,6 +77,14 @@ public class Task {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     @Override
