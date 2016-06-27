@@ -6,8 +6,6 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-import static com.sun.tools.doclets.formats.html.markup.HtmlStyle.description;
-import static com.sun.tools.doclets.formats.html.markup.HtmlStyle.title;
 
 /**
  * Created by bill.villaflor on 6/27/16.

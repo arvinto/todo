@@ -1,14 +1,9 @@
 package todo.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.jpa.repository.Query;
-
 import javax.persistence.*;
-
 import java.util.List;
 
-import static com.sun.tools.corba.se.idl.constExpr.Expression.one;
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 /**
  * Created by bill.villaflor on 6/27/16.

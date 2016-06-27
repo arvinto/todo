@@ -5,7 +5,6 @@ import org.springframework.data.annotation.Id;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.JoinColumn;
-import javax.persistence.Table;
 import java.util.Date;
 
 /**
