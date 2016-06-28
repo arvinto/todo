@@ -86,6 +86,24 @@ public class RepositoryDefaultService implements RepositoryService {
     }
 
     @Override
+    public void completeTask(Long taskId) {
+
+        Task task = taskRepo.findOne(taskId);
+        task.setCompleted(true);
+
+        taskRepo.save(task);
+    }
+
+    @Override
+    public void reopenTask(Long taskId) {
+
+        Task task = taskRepo.findOne(taskId);
+        task.setCompleted(false);
+
+        taskRepo.save(task);
+    }
+
+    @Override
     public void deleteComment( Long commentId ){
 
         commentRepo.delete(commentId);
@@ -98,7 +116,10 @@ public class RepositoryDefaultService implements RepositoryService {
     }
 
     @Override
-    public List<Task> getTasks(Long userId) { return null; }
+    public List<Task> getTasks(Long userId) {
+
+        return taskRepo.findByUserId(userId);
+    }
 
     @Override
     public List<Comment> getComments(Long taskId) {

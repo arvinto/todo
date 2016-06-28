@@ -24,6 +24,8 @@ public class Task {
 
     private Date editedDate;
 
+    private Boolean completed;
+
     @JoinColumn
     @ManyToOne
     private User user;
@@ -85,6 +87,14 @@ public class Task {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Boolean getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
     }
 
     @Override

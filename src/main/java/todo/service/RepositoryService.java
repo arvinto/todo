@@ -23,6 +23,10 @@ public interface RepositoryService {
 
     void deleteTasks( Long taskId );
 
+    void completeTask( Long taskId );
+
+    void reopenTask( Long taskId );
+
     void deleteComment( Long commentId );
 
     List<User> getUsers();
