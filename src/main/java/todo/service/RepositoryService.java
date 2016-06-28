@@ -1,5 +1,6 @@
 package todo.service;
 
+import org.springframework.stereotype.Component;
 import todo.model.Comment;
 import todo.model.Task;
 import todo.model.User;
