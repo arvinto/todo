@@ -13,15 +13,7 @@ import todo.service.RepositoryService;
 @SpringBootApplication
 public class Application {
 
-    @Autowired
-    private RepositoryService repositoryService;
-
     public static void main(String[] args){
         SpringApplication.run(Application.class, args);
-    }
-
-    @Bean
-    public RepositoryService repository(){
-        return repositoryService;
     }
 }

@@ -1,6 +1,7 @@
 package todo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import todo.model.Comment;
 import todo.model.Task;
 import todo.model.User;
@@ -17,6 +18,7 @@ import java.util.stream.StreamSupport;
 /**
  * Created by bill.villaflor on 6/27/16.
  */
+@Component
 public class RepositoryDefaultService implements RepositoryService {
 
     private UserRepository userRepo;
