@@ -19,6 +19,8 @@ public interface RepositoryService {
 
     void addComment( Long userId, Long taskId, String description, String date );
 
+    List<User> getUsers();
+
     List<Task> getTasks( Long userId );
 
     List<Comment> getComments( Long taskId );

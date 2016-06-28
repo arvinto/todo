@@ -9,9 +9,16 @@ import todo.repository.TaskRepository;
 import todo.repository.UserRepository;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
+import static com.sun.tools.doclets.formats.html.markup.HtmlStyle.description;
+import static com.sun.tools.doclets.formats.html.markup.HtmlStyle.title;
 
 /**
  * Created by bill.villaflor on 6/27/16.
@@ -77,9 +84,13 @@ public class RepositoryDefaultService implements RepositoryService {
     }
 
     @Override
-    public List<Task> getTasks(Long userId) {
-        return null;
+    public List<User> getUsers() {
+
+        return StreamSupport.stream(userRepo.findAll().spliterator(), false).collect(Collectors.toList());
     }
+
+    @Override
+    public List<Task> getTasks(Long userId) { return null; }
 
     @Override
     public List<Comment> getComments(Long taskId) {
