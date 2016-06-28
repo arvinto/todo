@@ -5,11 +5,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import todo.model.Task;
 import todo.service.RepositoryService;
 
 import java.time.Instant;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,6 +38,17 @@ public class TaskController {
 
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("message", "Task created successfully");
+
+        return response;
+    }
+
+    @RequestMapping(value="/task", method = RequestMethod.GET)
+    public Map<String, Object> getTasks(){
+        List<Task> tasks = repositoryService.getTasks(1l);
+
+        Map<String,Object> response = new LinkedHashMap<>();
+        response.put("message", "Tasks");
+        response.put("task", tasks);
 
         return response;
     }

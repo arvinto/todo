@@ -2,10 +2,7 @@ package todo.controller;
 
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import todo.model.User;
 import todo.service.RepositoryService;
 
@@ -41,8 +38,14 @@ public class UserController {
         return response;
     }
 
-    @RequestMapping(value="/users", method = RequestMethod.GET)
-    public List<User> getUsers(){
-        return null;
+    @RequestMapping(value="/user", method = RequestMethod.GET)
+    public Map<String, Object> getUsers(){
+        List<User> users = repositoryService.getUsers();
+
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("message", "Users");
+        response.put("user", users);
+
+        return response;
     }
 }
