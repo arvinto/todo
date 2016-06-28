@@ -58,6 +58,7 @@ public class RepositoryDefaultService implements RepositoryService {
             task.setDescription(description);
             task.setCreatedDate(createdDate);
             task.setUser(u);
+            task.setCompleted(false);
 
             taskRepo.save(task);
         });
@@ -127,7 +128,17 @@ public class RepositoryDefaultService implements RepositoryService {
     }
 
     @Override
-    public void editTask(Long taskId, String title, String description, String editedDate) {
+    public void editTask(Long taskId, String title, String description, Date editedDate) {
 
+        Optional<Task> task = Optional.ofNullable(taskRepo.findOne(taskId));
+
+        task.ifPresent( t -> {
+
+            t.setTitle(title);
+            t.setDescription(description);
+            t.setEditedDate(editedDate);
+
+            taskRepo.save(t);
+        });
     }
 }

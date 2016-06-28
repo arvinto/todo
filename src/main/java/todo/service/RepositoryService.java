@@ -35,5 +35,5 @@ public interface RepositoryService {
 
     List<Comment> getComments( Long taskId );
 
-    void editTask( Long taskId, String title, String description, String editedDate );
+    void editTask( Long taskId, String title, String description, Date editedDate );
 }

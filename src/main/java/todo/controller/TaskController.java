@@ -11,7 +11,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.springframework.data.jpa.domain.AbstractAuditable_.createdDate;
+import static org.omg.PortableServer.IdAssignmentPolicyValue.USER_ID;
+import static todo.model.EntityConstants.TASK_DESCRIPTION;
+import static todo.model.EntityConstants.TASK_ID;
+import static todo.model.EntityConstants.TASK_TITLE;
 
 /**
  * Created by arvinaboque on 6/27/16.
@@ -19,77 +22,91 @@ import static org.springframework.data.jpa.domain.AbstractAuditable_.createdDate
 @RestController
 public class TaskController {
 
+    private static final String MESSAGE = "message";
+
     private RepositoryService repositoryService;
 
     @Autowired
-    TaskController(RepositoryService repositoryService){
+    TaskController( RepositoryService repositoryService ){
 
         this.repositoryService = repositoryService;
     }
 
-    @RequestMapping(value="/task/add", method= RequestMethod.POST)
-    public Map<String, Object> addTask(@RequestBody Map<String,Object> taskMap){
+    @RequestMapping( value="/task/add", method= RequestMethod.POST )
+    public Map<String, Object> addTask( @RequestBody Map<String,Object> taskMap ){
 
-        String title = taskMap.get("title").toString();
-        String description = taskMap.get("description").toString();
-        Long userId = Long.valueOf(taskMap.get("userId").toString());
-        Date createdDate = Date.from(Instant.now());
+        String title = taskMap.get( TASK_TITLE ).toString();
+        String description = taskMap.get( TASK_DESCRIPTION ).toString();
+        Long userId = Long.valueOf( taskMap.get( USER_ID ).toString() );
 
-        repositoryService.addTask( userId, title, description, createdDate);
+        repositoryService.addTask( userId, title, description, getDateNow() );
 
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("message", "Task created successfully");
-
-        return response;
+        return createResponse( "Task created successfully" );
     }
 
-    @RequestMapping(value="/task/delete", method = RequestMethod.POST)
-    public Map<String, Object> deleteTask(@RequestBody Map<String, Object> taskMap){
+    @RequestMapping( value="/task/delete", method = RequestMethod.POST )
+    public Map<String, Object> deleteTask( @RequestBody Map<String, Object> taskMap ){
 
-        Long taskId = Long.valueOf(taskMap.get("taskId").toString());
+        Long taskId = Long.valueOf( taskMap.get( TASK_ID ).toString() );
 
-        repositoryService.deleteTasks(taskId);
+        repositoryService.deleteTasks( taskId );
 
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("message", "Task deleted successfully");
-
-        return response;
+        return createResponse( "Task deleted successfully" );
     }
 
-    @RequestMapping(value="/task/complete", method = RequestMethod.POST)
-    public Map<String, Object> completeTask(@RequestBody Map<String, Object> taskMap){
+    @RequestMapping( value="/task/complete", method = RequestMethod.POST )
+    public Map<String, Object> completeTask( @RequestBody Map<String, Object> taskMap ){
 
-        Long taskId = Long.valueOf(taskMap.get("taskId").toString());
-        repositoryService.completeTask(taskId);
+        Long taskId = Long.valueOf( taskMap.get( TASK_ID ).toString() );
+        repositoryService.completeTask( taskId );
 
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("message", "Task completed successfully");
-
-        return response;
+        return createResponse( "Task completed successfully" );
     }
 
-    @RequestMapping(value="/task/reopen", method = RequestMethod.POST)
-    public Map<String, Object> reopenTask(@RequestBody Map<String, Object> taskMap){
+    @RequestMapping( value="/task/reopen", method = RequestMethod.POST )
+    public Map<String, Object> reopenTask( @RequestBody Map<String, Object> taskMap ){
 
-        Long taskId = Long.valueOf(taskMap.get("taskId").toString());
-        repositoryService.reopenTask(taskId);
+        Long taskId = Long.valueOf( taskMap.get( TASK_ID ).toString() );
+        repositoryService.reopenTask( taskId );
 
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("message", "Task reopened successfully");
-
-        return response;
+        return createResponse( "Task reopened successfully" );
     }
 
-    @RequestMapping(value="/task", method = RequestMethod.POST)
-    public Map<String, Object> getTasks(@RequestBody Map<String,Object> taskMap){
+    @RequestMapping( value="/task", method = RequestMethod.POST )
+    public Map<String, Object> getTasks( @RequestBody Map<String,Object> taskMap ){
 
-        Long userId = Long.valueOf(taskMap.get("userId").toString());
-        List<Task> tasks = repositoryService.getTasks(Long.valueOf(userId));
+        Long userId = Long.valueOf( taskMap.get( USER_ID ).toString() );
+        List<Task> tasks = repositoryService.getTasks(Long.valueOf( userId ));
 
-        Map<String,Object> response = new LinkedHashMap<>();
-        response.put("message", "Tasks");
+
+        Map<String,Object> response = createResponse( "Fetched tasks" );
         response.put("task", tasks);
 
         return response;
+    }
+
+    @RequestMapping( value="/task/edit", method = RequestMethod.POST )
+    public Map<String,Object> editTask( @RequestBody Map<String, Object> taskMap ){
+
+        Long taskId = Long.valueOf(taskMap.get( TASK_ID ).toString());
+        String title = taskMap.get( TASK_TITLE ).toString();
+        String description = taskMap.get( TASK_DESCRIPTION ).toString();
+
+        repositoryService.editTask( taskId, title, description, getDateNow() );
+
+        return createResponse( "Task edited successfully" );
+    }
+
+    private Map<String,Object> createResponse( String message ){
+
+        Map<String,Object> response = new LinkedHashMap<>();
+        response.put( MESSAGE, message );
+
+        return response;
+    }
+
+    private Date getDateNow(){
+
+        return Date.from( Instant.now() );
     }
 }
