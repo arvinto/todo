@@ -20,10 +20,10 @@ public class User {
 
     private String emailAddress;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Task> tasks;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Comment> comments;
 
     public Long getId() {

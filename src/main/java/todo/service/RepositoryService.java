@@ -21,6 +21,10 @@ public interface RepositoryService {
 
     void addComment( Long userId, Long taskId, String description, Date date );
 
+    void deleteTasks( Long taskId );
+
+    void deleteComment( Long commentId );
+
     List<User> getUsers();
 
     List<Task> getTasks( Long userId );

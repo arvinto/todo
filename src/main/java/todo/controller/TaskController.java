@@ -32,7 +32,7 @@ public class TaskController {
         String description = taskMap.get("description").toString();
         Date createdDate = Date.from(Instant.now());
 
-        repositoryService.addTask( 1l, title, description, createdDate.toString());
+        repositoryService.addTask( 1l, title, description, createdDate);
 
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("message", "Task created successfully");

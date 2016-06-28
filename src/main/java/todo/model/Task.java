@@ -28,7 +28,7 @@ public class Task {
     @ManyToOne
     private User user;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Comment> comments;
 
     public long getId() {
