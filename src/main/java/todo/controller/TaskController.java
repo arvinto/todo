@@ -2,6 +2,7 @@ package todo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import todo.model.EntityConstants;
 import todo.model.Task;
 import todo.service.RepositoryService;
 
@@ -11,10 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.omg.PortableServer.IdAssignmentPolicyValue.USER_ID;
-import static todo.model.EntityConstants.TASK_DESCRIPTION;
-import static todo.model.EntityConstants.TASK_ID;
-import static todo.model.EntityConstants.TASK_TITLE;
+import static todo.model.EntityConstants.*;
 
 /**
  * Created by arvinaboque on 6/27/16.
@@ -37,7 +35,7 @@ public class TaskController {
 
         String title = taskMap.get( TASK_TITLE ).toString();
         String description = taskMap.get( TASK_DESCRIPTION ).toString();
-        Long userId = Long.valueOf( taskMap.get( USER_ID ).toString() );
+        Long userId = Long.valueOf( taskMap.get( EntityConstants.USER_ID ).toString() );
 
         repositoryService.addTask( userId, title, description, getDateNow() );
 
