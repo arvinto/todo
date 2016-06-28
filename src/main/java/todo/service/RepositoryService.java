@@ -5,6 +5,7 @@ import todo.model.Comment;
 import todo.model.Task;
 import todo.model.User;
 
+import java.util.Date;
 import java.util.List;
 
 import static com.sun.tools.doclets.formats.html.markup.HtmlStyle.title;
@@ -16,9 +17,9 @@ public interface RepositoryService {
 
     void addUser( String firstName, String lastName, String emailAddress );
 
-    void addTask( Long userId, String title, String description, String createdDate );
+    void addTask( Long userId, String title, String description, Date createdDate );
 
-    void addComment( Long userId, Long taskId, String description, String date );
+    void addComment( Long userId, Long taskId, String description, Date date );
 
     List<User> getUsers();
 

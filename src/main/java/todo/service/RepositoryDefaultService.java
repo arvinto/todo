@@ -51,7 +51,7 @@ public class RepositoryDefaultService implements RepositoryService {
     }
 
     @Override
-    public void addTask(Long userId, String title, String description, String createdDate) {
+    public void addTask(Long userId, String title, String description, Date createdDate) {
 
         Optional<User> user = Optional.ofNullable(userRepo.findOne(userId));
 
@@ -60,7 +60,7 @@ public class RepositoryDefaultService implements RepositoryService {
             Task task = new Task();
             task.setTitle(title);
             task.setDescription(description);
-            task.setCreatedDate(Date.from(Instant.now()));
+            task.setCreatedDate(createdDate);
             task.setUser(u);
 
             taskRepo.save(task);
@@ -68,7 +68,7 @@ public class RepositoryDefaultService implements RepositoryService {
     }
 
     @Override
-    public void addComment(Long userId, Long taskId, String description, String date) {
+    public void addComment(Long userId, Long taskId, String description, Date date) {
 
         Optional<User> user = Optional.ofNullable(userRepo.findOne(userId));
         Optional<Task> task = Optional.ofNullable(taskRepo.findOne(taskId));
@@ -77,7 +77,7 @@ public class RepositoryDefaultService implements RepositoryService {
 
             Comment comment = new Comment();
             comment.setDescription(description);
-            comment.setDate(Date.from(Instant.now()));
+            comment.setDate(date);
             comment.setUser(user.get());
             comment.setTask(task.get());
         }
