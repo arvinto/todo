@@ -1,7 +1,10 @@
 package todo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import todo.model.Task;
 import todo.service.RepositoryService;
 
@@ -16,7 +19,7 @@ import static org.springframework.data.jpa.domain.AbstractAuditable_.createdDate
 /**
  * Created by arvinaboque on 6/27/16.
  */
-@RestController
+@Controller
 public class TaskController {
 
     private RepositoryService repositoryService;
@@ -27,6 +30,7 @@ public class TaskController {
     }
 
     @RequestMapping(value="/task/add", method= RequestMethod.POST)
+    @ResponseBody
     public Map<String, Object> addTask(@RequestBody Map<String,Object> taskMap){
 
         String title = taskMap.get("title").toString();
@@ -38,6 +42,7 @@ public class TaskController {
 
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("message", "Task created successfully");
+        response.put("tasks", repositoryService.getTasks(1L));
 
         return response;
     }
@@ -79,16 +84,14 @@ public class TaskController {
         return response;
     }
 
-    @RequestMapping(value="/task", method = RequestMethod.POST)
-    public Map<String, Object> getTasks(@RequestBody Map<String,Object> taskMap){
+    @RequestMapping(value="/task", method = RequestMethod.GET)
+    public String getTasks(Model model){
 
-        Long userId = Long.valueOf(taskMap.get("userId").toString());
-        List<Task> tasks = repositoryService.getTasks(Long.valueOf(userId));
+//        Long userId = Long.valueOf(taskMap.get("userId").toString());
+        List<Task> tasks = repositoryService.getTasks(1L);
 
-        Map<String,Object> response = new LinkedHashMap<>();
-        response.put("message", "Tasks");
-        response.put("task", tasks);
+        model.addAttribute("tasks", tasks);
 
-        return response;
+        return "task";
     }
 }

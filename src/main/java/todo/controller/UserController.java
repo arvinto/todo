@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @RequestMapping( value="/user/add", method = RequestMethod.POST )
-    public Map<String, Object> addUser(@RequestBody Map<String, Object> userMap){
+    public List<User> addUser(@RequestBody Map<String, Object> userMap){
 
         String firstName = userMap.get( USER_FIRST_NAME ).toString();
         String lastName  = userMap.get( USER_LAST_NAME ).toString();
@@ -36,7 +36,7 @@ public class UserController {
 
         repositoryService.addUser( firstName, lastName, emailAddress );
 
-        return createResponse( "User added successfully" );
+        return repositoryService.getUsers();
     }
 
     @RequestMapping( value="/user", method = RequestMethod.GET )
@@ -44,7 +44,7 @@ public class UserController {
 
         List<User> users = repositoryService.getUsers();
 
-        Map<String, Object> response = createResponse( "Fetched users" );
+        Map<String, Object> response = createResponse( "Fetched users", "user", users );
         response.put( "user", users );
 
         return response;

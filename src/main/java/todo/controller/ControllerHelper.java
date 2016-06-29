@@ -1,9 +1,11 @@
 package todo.controller;
 
+import todo.model.User;
+
 import java.time.Instant;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
+
+import static javafx.scene.input.KeyCode.T;
 
 /**
  * Created by bill.villaflor on 6/29/16.
@@ -22,10 +24,11 @@ public final class ControllerHelper {
 
     private static final String MESSAGE = "message";
 
-    public static Map<String,Object> createResponse(String message ){
+    public static Map<String,Object> createResponse(String message, String type, List<User> objects){
 
         Map<String,Object> response = new LinkedHashMap<>();
         response.put( MESSAGE, message );
+        response.put( type, objects);
 
         return response;
     }
