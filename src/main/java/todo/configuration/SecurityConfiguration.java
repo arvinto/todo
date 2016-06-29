@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * Created by bill.villaflor on 6/29/16.
@@ -14,6 +15,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    public void setUserDetailsService( UserDetailsService userDetailsService ){
+
+        this.userDetailsService = userDetailsService;
+    }
+
     @Override
     protected  void configure( HttpSecurity http ) throws Exception {
 
@@ -21,20 +30,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin()
-                .loginPage( "/login" )
-                .permitAll()
+                    .formLogin()
+                    .loginPage( "/login" )
+                    .permitAll()
                 .and()
-                .logout()
-                .permitAll();
+                    .logout()
+                    .permitAll()
+                .and()
+                    .csrf()
+                    .disable();
     }
 
     @Autowired
     public void configureGlobal( AuthenticationManagerBuilder auth ) throws Exception {
 
-        auth.inMemoryAuthentication()
-                .withUser( "user")
-                .password( "password" )
-                .roles( "USER" );
+        auth.userDetailsService(userDetailsService);
     }
 }

@@ -18,6 +18,8 @@ public final class ControllerHelper {
     public static final String TASK_ID = "taskId";
 
     public static final String USER_ID = "userId";
+    public static final String USER_USER_NAME = "userName";
+    public static final String USER_PASSWORD = "password";
     public static final String USER_FIRST_NAME = "firstName";
     public static final String USER_LAST_NAME = "lastName";
     public static final String USER_EMAIL = "emailAddress";

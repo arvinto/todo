@@ -36,12 +36,14 @@ public class RepositoryDefaultService implements RepositoryService {
     }
 
     @Override
-    public void addUser( String firstName, String lastName, String emailAddress ) {
+    public void addUser( String firstName, String lastName, String emailAddress, String userName, String password ) {
 
         User user = new User();
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmailAddress(emailAddress);
+        user.setUserName( userName );
+        user.setPassword( password );
 
         userRepo.save(user);
     }

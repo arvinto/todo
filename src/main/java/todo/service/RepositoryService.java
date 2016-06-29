@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface RepositoryService {
 
-    void addUser( String firstName, String lastName, String emailAddress );
+    void addUser( String firstName, String lastName, String emailAddress, String userName, String password );
 
     void addTask( Long userId, String title, String description, Date createdDate );
 

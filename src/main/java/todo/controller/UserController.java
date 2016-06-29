@@ -33,8 +33,10 @@ public class UserController {
         String firstName = userMap.get( USER_FIRST_NAME ).toString();
         String lastName  = userMap.get( USER_LAST_NAME ).toString();
         String emailAddress = userMap.get( USER_EMAIL ).toString();
+        String userName = userMap.get( USER_USER_NAME ).toString();
+        String password = userMap.get( USER_PASSWORD ).toString();
 
-        repositoryService.addUser( firstName, lastName, emailAddress );
+        repositoryService.addUser( firstName, lastName, emailAddress, userName, password );
 
         return repositoryService.getUsers();
     }

@@ -1,7 +1,6 @@
 package todo;
 
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -15,11 +14,11 @@ import todo.service.RepositoryService;
 public class Application {
 
     @Bean
-    InitializingBean populate(RepositoryService service){
+    InitializingBean populate( RepositoryService service ){
         return () -> {
-            service.addUser("Bill", "Villaflor", "bill@villaflor.com");
-            service.addUser("Arvin", "Aboque", "arvin@aboque.com");
-            service.addTask(1L, "Sample Task", "Sample task decscription", ControllerHelper.getDateNow());
+            service.addUser( "Bill", "Villaflor", "bill@villaflor.com", "bill", "bill" );
+            service.addUser( "Arvin", "Aboque", "arvin@aboque.com", "arvin", "arvin" );
+            service.addTask( 1L, "Sample Task", "Sample task decscription", ControllerHelper.getDateNow() );
         };
     }
 

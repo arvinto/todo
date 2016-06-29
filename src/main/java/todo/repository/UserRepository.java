@@ -10,4 +10,6 @@ import todo.model.User;
 public interface UserRepository extends CrudRepository<User, Long> {
 
     User findByEmailAddress(String emailAddress);
+
+    User findByUserName(String userName);
 }
