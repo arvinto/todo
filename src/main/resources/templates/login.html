@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"></meta>
+    <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
 <body>
-    <form method="post">
-        <input type="text" placeholder="Username"/>
-        <input type="text" placeholder="Password"/>
-        <button type="submit">Send</button>
+    <form th:action="@{/login}" method="post">
+        <input type="text" name="username" placeholder="Username"/>
+        <input type="text" name="password" placeholder="Password"/>
+        <input type="submit" value="Sign In"/>
     </form>
 </body>
 </html>
