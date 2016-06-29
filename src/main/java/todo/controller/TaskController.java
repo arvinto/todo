@@ -1,26 +1,23 @@
 package todo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import todo.model.EntityConstants;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import todo.model.Task;
 import todo.service.RepositoryService;
 
-import java.time.Instant;
-import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static todo.model.EntityConstants.*;
+import static todo.controller.ControllerHelper.*;
 
 /**
  * Created by arvinaboque on 6/27/16.
  */
 @RestController
 public class TaskController {
-
-    private static final String MESSAGE = "message";
 
     private RepositoryService repositoryService;
 
@@ -35,7 +32,7 @@ public class TaskController {
 
         String title = taskMap.get( TASK_TITLE ).toString();
         String description = taskMap.get( TASK_DESCRIPTION ).toString();
-        Long userId = Long.valueOf( taskMap.get( EntityConstants.USER_ID ).toString() );
+        Long userId = Long.valueOf( taskMap.get( USER_ID ).toString() );
 
         repositoryService.addTask( userId, title, description, getDateNow() );
 
@@ -93,18 +90,5 @@ public class TaskController {
         repositoryService.editTask( taskId, title, description, getDateNow() );
 
         return createResponse( "Task edited successfully" );
-    }
-
-    private Map<String,Object> createResponse( String message ){
-
-        Map<String,Object> response = new LinkedHashMap<>();
-        response.put( MESSAGE, message );
-
-        return response;
-    }
-
-    private Date getDateNow(){
-
-        return Date.from( Instant.now() );
     }
 }

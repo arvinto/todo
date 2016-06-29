@@ -2,7 +2,6 @@ package todo.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import todo.model.Comment;
 import todo.model.Task;
 
 import java.util.List;

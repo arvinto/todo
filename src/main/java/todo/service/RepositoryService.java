@@ -1,14 +1,11 @@
 package todo.service;
 
-import org.springframework.stereotype.Component;
 import todo.model.Comment;
 import todo.model.Task;
 import todo.model.User;
 
 import java.util.Date;
 import java.util.List;
-
-import static com.sun.tools.doclets.formats.html.markup.HtmlStyle.title;
 
 /**
  * Created by bill.villaflor on 6/27/16.

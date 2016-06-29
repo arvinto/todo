@@ -28,7 +28,7 @@ public class RepositoryDefaultService implements RepositoryService {
     private CommentRepository commentRepo;
 
     @Autowired
-    public RepositoryDefaultService(UserRepository userRepo, TaskRepository taskRepo, CommentRepository commentRepo){
+    public RepositoryDefaultService( UserRepository userRepo, TaskRepository taskRepo, CommentRepository commentRepo ){
 
         this.userRepo = userRepo;
         this.taskRepo = taskRepo;
@@ -36,7 +36,7 @@ public class RepositoryDefaultService implements RepositoryService {
     }
 
     @Override
-    public void addUser(String firstName, String lastName, String emailAddress) {
+    public void addUser( String firstName, String lastName, String emailAddress ) {
 
         User user = new User();
         user.setFirstName(firstName);
@@ -47,7 +47,7 @@ public class RepositoryDefaultService implements RepositoryService {
     }
 
     @Override
-    public void addTask(Long userId, String title, String description, Date createdDate) {
+    public void addTask( Long userId, String title, String description, Date createdDate ) {
 
         Optional<User> user = Optional.ofNullable(userRepo.findOne(userId));
 
@@ -65,7 +65,7 @@ public class RepositoryDefaultService implements RepositoryService {
     }
 
     @Override
-    public void addComment(Long userId, Long taskId, String description, Date date) {
+    public void addComment( Long userId, Long taskId, String description, Date date ) {
 
         Optional<User> user = Optional.ofNullable(userRepo.findOne(userId));
         Optional<Task> task = Optional.ofNullable(taskRepo.findOne(taskId));
@@ -87,50 +87,46 @@ public class RepositoryDefaultService implements RepositoryService {
     }
 
     @Override
-    public void completeTask(Long taskId) {
+    public void completeTask( Long taskId ) {
 
-        Task task = taskRepo.findOne(taskId);
-        task.setCompleted(true);
-
-        taskRepo.save(task);
+        setTaskCompletion( taskId, true );
     }
 
     @Override
-    public void reopenTask(Long taskId) {
+    public void reopenTask( Long taskId ) {
 
-        Task task = taskRepo.findOne(taskId);
-        task.setCompleted(false);
-
-        taskRepo.save(task);
+        setTaskCompletion( taskId, false );
     }
 
     @Override
     public void deleteComment( Long commentId ){
 
-        commentRepo.delete(commentId);
+        commentRepo.delete( commentId );
     }
 
     @Override
     public List<User> getUsers() {
 
-        return StreamSupport.stream(userRepo.findAll().spliterator(), false).collect(Collectors.toList());
+        return StreamSupport.stream( userRepo.findAll().spliterator(), false )
+                            .collect( Collectors.toList() );
     }
 
     @Override
     public List<Task> getTasks(Long userId) {
 
-        return taskRepo.findByUserId(userId);
+        return taskRepo.findByUserId( userId );
     }
 
     @Override
-    public List<Comment> getComments(Long taskId) {
+    public List<Comment> getComments( Long taskId ) {
+
         return null;
     }
 
     @Override
-    public void editTask(Long taskId, String title, String description, Date editedDate) {
+    public void editTask( Long taskId, String title, String description, Date editedDate ) {
 
-        Optional<Task> task = Optional.ofNullable(taskRepo.findOne(taskId));
+        Optional<Task> task = Optional.ofNullable( taskRepo.findOne(taskId) );
 
         task.ifPresent( t -> {
 
@@ -138,7 +134,17 @@ public class RepositoryDefaultService implements RepositoryService {
             t.setDescription(description);
             t.setEditedDate(editedDate);
 
-            taskRepo.save(t);
+            taskRepo.save( t );
+        });
+    }
+
+    private void setTaskCompletion( Long taskId, boolean isCompleted ) {
+        Optional<Task> task = Optional.ofNullable( taskRepo.findOne( taskId ) );
+
+        task.ifPresent( t -> {
+
+            t.setCompleted( isCompleted );
+            taskRepo.save( t );
         });
     }
 }
