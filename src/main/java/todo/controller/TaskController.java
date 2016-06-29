@@ -1,6 +1,8 @@
 package todo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import todo.model.Task;
 import todo.service.RepositoryService;
@@ -21,7 +23,6 @@ public class TaskController {
 
     @Autowired
     TaskController( RepositoryService repositoryService ){
-
         this.repositoryService = repositoryService;
     }
 
@@ -37,14 +38,11 @@ public class TaskController {
     }
 
     @RequestMapping( method = RequestMethod.GET )
-    public Map<String, Object> getTasks( @PathVariable Long userId ){
+    public ResponseEntity<List<Task>> getTasks(@PathVariable Long userId ){
 
         List<Task> tasks = repositoryService.getTasks( Long.valueOf( userId ) );
 
-        Map<String,Object> response = createResponse( "Fetched tasks" );
-        response.put( "task", tasks );
-
-        return response;
+        return new ResponseEntity<List<Task>>(tasks, HttpStatus.OK);
     }
 
     @RequestMapping( value="/{taskId}/delete", method = RequestMethod.DELETE )
