@@ -2,6 +2,7 @@ package todo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import todo.controller.ControllerHelper;
 import todo.model.Comment;
 import todo.model.Task;
 import todo.model.User;
@@ -69,9 +70,9 @@ public class RepositoryDefaultService implements RepositoryService {
     }
 
     @Override
-    public void addComment( Long userId, Long taskId, String description, Date date ) {
+    public void addComment( String userName, Long taskId, String description, Date date ) {
 
-        Optional<User> user = Optional.ofNullable(userRepo.findOne(userId));
+        Optional<User> user = Optional.ofNullable(userRepo.findByUserName(userName));
         Optional<Task> task = Optional.ofNullable(taskRepo.findOne(taskId));
 
         if( user.isPresent() && task.isPresent() ){
@@ -145,6 +146,21 @@ public class RepositoryDefaultService implements RepositoryService {
 
             taskRepo.save( t );
         });
+    }
+
+    @Override
+    public void editComment(Long commentId, String description) {
+
+        Optional<Comment> comment = Optional.ofNullable( commentRepo.findOne(commentId) );
+
+        comment.ifPresent( c -> {
+
+            c.setDescription(description);
+            c.setEditedDate(ControllerHelper.getDateNow());
+
+            commentRepo.save(c);
+        });
+
     }
 
     private void setTaskCompletion( Long taskId, boolean isCompleted ) {

@@ -22,12 +22,14 @@ public class Comment {
 
     private Date date;
 
+    private Date editedDate;
+
     @JoinColumn
     @ManyToOne
     private User user;
 
     @JoinColumn( name="task" )
-    @ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToOne
     private Task task;
 
     public Long getId() {
@@ -68,6 +70,14 @@ public class Comment {
 
     public void setTask(Task task) {
         this.task = task;
+    }
+
+    public Date getEditedDate() {
+        return editedDate;
+    }
+
+    public void setEditedDate(Date editedDate) {
+        this.editedDate = editedDate;
     }
 
     @Override
