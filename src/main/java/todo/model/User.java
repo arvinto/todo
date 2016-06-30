@@ -14,15 +14,16 @@ public class User {
     @GeneratedValue
     private Long id;
 
+    @Column( unique = true )
+    private String userName;
+
+    private String password;
+
     private String firstName;
 
     private String lastName;
 
     private String emailAddress;
-
-    private String userName;
-
-    private String password;
 
     @OneToMany(cascade = CascadeType.REMOVE)
     private List<Task> tasks;

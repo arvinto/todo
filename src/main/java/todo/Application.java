@@ -18,7 +18,7 @@ public class Application {
         return () -> {
             service.addUser( "Bill", "Villaflor", "bill@villaflor.com", "bill", "bill" );
             service.addUser( "Arvin", "Aboque", "arvin@aboque.com", "arvin", "arvin" );
-            service.addTask( 1L, "Sample Task", "Sample task decscription", ControllerHelper.getDateNow() );
+            service.addTask( "bill", "Sample Task", "Sample task decscription", ControllerHelper.getDateNow() );
         };
     }
 

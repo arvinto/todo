@@ -9,6 +9,7 @@ import todo.repository.CommentRepository;
 import todo.repository.TaskRepository;
 import todo.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -49,18 +50,18 @@ public class RepositoryDefaultService implements RepositoryService {
     }
 
     @Override
-    public void addTask( Long userId, String title, String description, Date createdDate ) {
+    public void addTask( String userName, String title, String description, Date createdDate ) {
 
-        Optional<User> user = Optional.ofNullable(userRepo.findOne(userId));
+        Optional<User> user = Optional.ofNullable( userRepo.findByUserName( userName ) );
 
         user.ifPresent( u -> {
 
             Task task = new Task();
-            task.setTitle(title);
-            task.setDescription(description);
-            task.setCreatedDate(createdDate);
-            task.setUser(u);
-            task.setCompleted(false);
+            task.setTitle( title );
+            task.setDescription( description );
+            task.setCreatedDate( createdDate );
+            task.setUser( u );
+            task.setCompleted( false );
 
             taskRepo.save(task);
         });
@@ -114,9 +115,12 @@ public class RepositoryDefaultService implements RepositoryService {
     }
 
     @Override
-    public List<Task> getTasks(Long userId) {
+    public List<Task> getTasks( String userName ) {
 
-        return taskRepo.findByUserId( userId );
+        Optional<User> user = Optional.ofNullable( userRepo.findByUserName( userName ) );
+
+        return user.map( u -> taskRepo.findByUserId( ( u.getId() ) ) )
+                   .orElse( new ArrayList<>() );
     }
 
     @Override

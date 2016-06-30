@@ -14,7 +14,7 @@ public interface RepositoryService {
 
     void addUser( String firstName, String lastName, String emailAddress, String userName, String password );
 
-    void addTask( Long userId, String title, String description, Date createdDate );
+    void addTask( String userName, String title, String description, Date createdDate );
 
     void addComment( Long userId, Long taskId, String description, Date date );
 
@@ -28,7 +28,7 @@ public interface RepositoryService {
 
     List<User> getUsers();
 
-    List<Task> getTasks( Long userId );
+    List<Task> getTasks( String userName );
 
     List<Comment> getComments( Long taskId );
 

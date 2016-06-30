@@ -3,6 +3,7 @@ package todo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import todo.model.Task;
 import todo.service.RepositoryService;
@@ -16,7 +17,7 @@ import static todo.controller.ControllerHelper.*;
  * Created by arvinaboque on 6/27/16.
  */
 @RestController
-@RequestMapping("/user/{userId}/task")
+@RequestMapping("/user/{userName}/task")
 public class TaskController {
 
     private RepositoryService repositoryService;
@@ -26,22 +27,22 @@ public class TaskController {
         this.repositoryService = repositoryService;
     }
 
-    @RequestMapping( value="/add", method= RequestMethod.POST )
-    public Map<String, Object> addTask( @PathVariable Long userId, @RequestBody Map<String,Object> taskMap ){
+    @RequestMapping( value = "/add", method = RequestMethod.POST )
+    public Map<String, Object> addTask( @PathVariable String userName, @RequestBody Map<String,Object> taskMap ){
 
         String title = taskMap.get( TASK_TITLE ).toString();
         String description = taskMap.get( TASK_DESCRIPTION ).toString();
 
-        repositoryService.addTask( userId, title, description, getDateNow() );
+        repositoryService.addTask( userName, title, description, getDateNow() );
 
         return createResponse( "Task created successfully" );
     }
 
     @RequestMapping( method = RequestMethod.GET )
-    public ResponseEntity<List<Task>> getTasks(@PathVariable Long userId ){
+    public ResponseEntity<List<Task>> getTasks( @PathVariable String userName ){
 
-        List<Task> tasks = repositoryService.getTasks( Long.valueOf( userId ) );
-
+        List<Task> tasks = repositoryService.getTasks( userName );
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
         return new ResponseEntity<List<Task>>(tasks, HttpStatus.OK);
     }
 

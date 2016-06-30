@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends CrudRepository<Task, Long>{
 
-    Task findByTitle(String title);
+    Task findByTitle( String title );
 
-    List<Task> findByUserId(Long userId);
+    List<Task> findByUserId( Long userId );
 }

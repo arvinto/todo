@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import todo.model.User;
 import todo.service.RepositoryService;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +19,7 @@ import static todo.controller.ControllerHelper.*;
  * Created by arvinaboque on 6/27/16.
  */
 @RestController
+@RequestMapping( "/user" )
 public class UserController {
 
     private RepositoryService repositoryService;
@@ -27,7 +30,7 @@ public class UserController {
         this.repositoryService = repositoryService;
     }
 
-    @RequestMapping( value="/user/add", method = RequestMethod.POST )
+    @RequestMapping( value="/add", method = RequestMethod.POST )
     public List<User> addUser(@RequestBody Map<String, Object> userMap){
 
         String firstName = userMap.get( USER_FIRST_NAME ).toString();
@@ -41,7 +44,7 @@ public class UserController {
         return repositoryService.getUsers();
     }
 
-    @RequestMapping( value="/user", method = RequestMethod.GET )
+    @RequestMapping( value="/all", method = RequestMethod.GET )
     public Map<String, Object> getUsers(){
 
         List<User> users = repositoryService.getUsers();
@@ -50,5 +53,13 @@ public class UserController {
         response.put( "user", users );
 
         return response;
+    }
+
+    @RequestMapping( method = RequestMethod.GET )
+    public String getUser( HttpServletRequest request ){
+
+        Principal principal = request.getUserPrincipal();
+
+        return principal.getName();
     }
 }
