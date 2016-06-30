@@ -1,13 +1,16 @@
 angular.module('todor', [])
   .controller('data', function($scope, $http) {
 
-      $http.get('/user').success(function(data){
-            console.log('/user/'+data+'/task');
-          $http.get('/user/'+data+'/task').success(function(data) {
-            console.data;
-            $scope.task = data;
-          })
-      });
+
+      var poll = function(){
+            $http.get('/user').success(function(data){
+                console.log('/user/'+data+'/task');
+              $http.get('/user/'+data+'/task').success(function(data) {
+                console.data;
+                $scope.task = data;
+              })
+          });
+      }
 
       $http.get()
 
@@ -15,7 +18,7 @@ angular.module('todor', [])
           $http.get('/user').success(function(data){
             console.log('/user/'+data+'/task/add');
             $http.post('/user/'+data+'/task/add', $scope.form).success(function(data){
-                console.log("add success");
+                poll();
             });
           });
       };
