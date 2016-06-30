@@ -22,12 +22,19 @@ angular.module('todor', [])
 
     $scope.updateTaskStatus = function($event,taskId){
         $http.get('/user').success(function(data){
-                    console.log($event);
-            console.log(taskId);
             var checkbox = $event.target;
             var action = (checkbox.checked?'complete':'reopen');
           $http.put('/user/'+data+'/task/'+taskId+'/'+action, [] ).success(function(data){
               console.log(data['message']);
+          });
+        });
+    };
+
+    $scope.deleteTask = function(taskId){
+        $http.get('/user').success(function(data){
+          $http.delete('/user/'+data+'/task/'+taskId+'/delete' ).success(function(data){
+              console.log(data['message']);
+              poll();
           });
         });
     };
