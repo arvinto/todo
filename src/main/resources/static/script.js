@@ -1,18 +1,17 @@
 angular.module('todor', [])
   .controller('data', function($scope, $http) {
 
-
-      var poll = function(){
+       var poll = function(){
             $http.get('/user').success(function(data){
-                console.log('/user/'+data+'/task');
-              $http.get('/user/'+data+'/task').success(function(data) {
-                console.data;
-                $scope.task = data;
-              })
-          });
-      }
+                    console.log('/user/'+data+'/task');
+                  $http.get('/user/'+data+'/task').success(function(data) {
+                    console.data;
+                    $scope.task = data;
+                  })
+              });
+            }
 
-      $http.get()
+      poll();
 
       $scope.addTask = function(){
           $http.get('/user').success(function(data){
@@ -22,6 +21,8 @@ angular.module('todor', [])
             });
           });
       };
+
+
 });
 
 $(document).ready(function(){
@@ -33,4 +34,5 @@ $(document).ready(function(){
     $("#logout-link").click(function(){
         $("#logout-form").submit();
     });
+
 });
