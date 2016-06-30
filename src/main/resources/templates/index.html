@@ -14,9 +14,15 @@
     <div class="nav-wrapper container">
       <a id="logo-container" href="#" class="brand-logo">TODOr</a>
       <ul class="right hide-on-med-and-down">
+        <li>
+          <form id="logout-form" th:action="@{/login}" method="post">
+            <a id="logout-link">Logout</a>
+          </form>
+        </li>
+      </ul>
+      <ul class="right hide-on-med-and-down">
         <li><a href="/about">About</a></li>
       </ul>
-
       <ul id="nav-mobile" class="side-nav">
         <li><a href="/about">About</a></li>
       </ul>
@@ -70,14 +76,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
   <script src="script.js"></script>
-  <script>
-    $(document).ready(function(){
-
-        $('.collapsible').collapsible({
-          accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-        });
-    });
-</script>
 </body>
 </html>
 

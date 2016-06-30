@@ -11,5 +11,15 @@ angular.module('todor', [])
             console.log("add success");
         });
       };
+});
 
+$(document).ready(function(){
+
+    $('.collapsible').collapsible({
+        accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+
+    $("#logout-link").click(function(){
+        $("#logout-form").submit();
+    });
 });
