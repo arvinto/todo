@@ -16,7 +16,7 @@ public interface RepositoryService {
 
     void addTask( String userName, String title, String description, Date createdDate );
 
-    void addComment( Long userId, Long taskId, String description, Date date );
+    void addComment( String userName, Long taskId, String description, Date date );
 
     void deleteTasks( Long taskId );
 
@@ -33,4 +33,6 @@ public interface RepositoryService {
     List<Comment> getComments( Long taskId );
 
     void editTask( Long taskId, String title, String description, Date editedDate );
+
+    void editComment( Long commentId, String description );
 }
