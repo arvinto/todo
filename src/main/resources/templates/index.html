@@ -43,7 +43,7 @@
             <li ng-repeat="item in task">
               <div class="collapsible-header">
                 <p>
-                  <input type="checkbox" id="task-{{item.id}}" />
+                  <input ng-checked="item.completed==true" type="checkbox" id="task-{{item.id}}" ng-model="task.selection" ng-click="updateTaskStatus($event,item.id)"/>
                   <label for="task-{{item.id}}">{{item.title}}</label>
                 </p>
               </div>

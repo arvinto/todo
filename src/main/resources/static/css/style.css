@@ -9,7 +9,10 @@
 #app {
     width: 100%;
     min-width: 240px;
-    min-height: 320px;
+}
+
+#app-body {
+    max-width: 500px;
 }
 
 nav ul a,

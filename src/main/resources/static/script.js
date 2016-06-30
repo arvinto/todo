@@ -3,7 +3,6 @@ angular.module('todor', [])
 
        var poll = function(){
             $http.get('/user').success(function(data){
-                    console.log('/user/'+data+'/task');
                   $http.get('/user/'+data+'/task').success(function(data) {
                     console.data;
                     $scope.task = data;
@@ -15,14 +14,23 @@ angular.module('todor', [])
 
       $scope.addTask = function(){
           $http.get('/user').success(function(data){
-            console.log('/user/'+data+'/task/add');
             $http.post('/user/'+data+'/task/add', $scope.form).success(function(data){
                 poll();
             });
           });
       };
 
-
+    $scope.updateTaskStatus = function($event,taskId){
+        $http.get('/user').success(function(data){
+                    console.log($event);
+            console.log(taskId);
+            var checkbox = $event.target;
+            var action = (checkbox.checked?'complete':'reopen');
+          $http.put('/user/'+data+'/task/'+taskId+'/'+action, [] ).success(function(data){
+              console.log(data['message']);
+          });
+        });
+    };
 });
 
 $(document).ready(function(){
