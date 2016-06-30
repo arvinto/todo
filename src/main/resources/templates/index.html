@@ -43,8 +43,8 @@
             <li ng-repeat="item in task">
               <div class="collapsible-header">
                 <p>
-                  <input type="checkbox" id="task" />
-                  <label for="task">{{item.title}}</label>
+                  <input type="checkbox" id="task-{{item.id}}" />
+                  <label for="task-{{item.id}}">{{item.title}}</label>
                 </p>
               </div>
               <div class="collapsible-body">

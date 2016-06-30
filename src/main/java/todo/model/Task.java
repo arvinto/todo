@@ -30,7 +30,7 @@ public class Task {
     @ManyToOne
     private User user;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = {CascadeType.REMOVE})
     private List<Comment> comments;
 
     public long getId() {
@@ -79,6 +79,10 @@ public class Task {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public void addComment(Comment comment){
+        this.comments.add(comment);
     }
 
     public Date getCreatedDate() {

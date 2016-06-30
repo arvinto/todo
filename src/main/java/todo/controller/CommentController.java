@@ -1,10 +1,9 @@
 package todo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import todo.model.Comment;
 import todo.service.RepositoryService;
 
@@ -18,6 +17,7 @@ import java.util.Map;
  * Created by arvinaboque on 6/28/16.
  */
 @RestController
+@RequestMapping(value="user/{userId}/task/{taskId}/comment")
 public class CommentController {
 
     private RepositoryService repositoryService;
@@ -27,25 +27,21 @@ public class CommentController {
         this.repositoryService = repositoryService;
     }
 
-    @RequestMapping(value="/comment", method = RequestMethod.GET)
-    public List<Comment> getComments(){
+    @RequestMapping(value="/", method = RequestMethod.GET)
+    public ResponseEntity<List<Comment>> getComments(@PathVariable Long taskId){
 
-        return repositoryService.getComments(1L);
+        List<Comment> comments =  repositoryService.getComments(taskId);
+        return new ResponseEntity<List<Comment>>( comments, HttpStatus.OK);
     }
 
-    @RequestMapping(value="/comment/add", method = RequestMethod.POST)
-    public Map<String, Object> addCommment(@RequestBody Map<String, Object> commentMap ){
+    @RequestMapping(value="/add", method = RequestMethod.POST)
+    public ResponseEntity<String> addCommment(@PathVariable Long userId, @PathVariable Long taskId, @RequestBody Map<String, Object> commentMap ){
 
         String description = commentMap.get("description").toString();
         Date date = Date.from(Instant.now());
+        repositoryService.addComment(userId, taskId, description, date);
 
-        //TODO supply user and task id
-        repositoryService.addComment(1L, 1L, description, date);
-
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("message", "Comment added successfully");
-
-        return response;
+        return new ResponseEntity<String>("Comment Added",HttpStatus.CREATED);
     }
 
 

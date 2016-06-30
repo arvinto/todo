@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -80,6 +81,8 @@ public class RepositoryDefaultService implements RepositoryService {
             comment.setDate(date);
             comment.setUser(user.get());
             comment.setTask(task.get());
+
+            commentRepo.save(comment);
         }
     }
 
@@ -126,7 +129,7 @@ public class RepositoryDefaultService implements RepositoryService {
     @Override
     public List<Comment> getComments( Long taskId ) {
 
-        return null;
+        return commentRepo.findByTaskId( taskId );
     }
 
     @Override

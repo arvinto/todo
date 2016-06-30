@@ -1,7 +1,11 @@
 package todo.model;
 
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import java.util.Date;
 
 /**
@@ -22,8 +26,8 @@ public class Comment {
     @ManyToOne
     private User user;
 
-    @JoinColumn
-    @ManyToOne
+    @JoinColumn( name="task" )
+    @ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private Task task;
 
     public Long getId() {
