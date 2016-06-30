@@ -6,6 +6,12 @@
  * Made By MaterializeCSS.com
  */
 
+#app {
+    width: 100%;
+    min-width: 240px;
+    min-height: 320px;
+}
+
 nav ul a,
 nav .brand-logo {
   color: #444;
